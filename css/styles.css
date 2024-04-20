@@ -1,0 +1,228 @@
+/* geral */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Helvetica;
+}
+
+body{
+  background-color: #202124;
+}
+
+/* Cabeçalho */
+
+header{
+  border-bottom: 1px #ccc solid;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #FFF;
+}
+
+#search-container{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+#search-input {
+  background-color: #525356;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  width: 400px;
+  color: #ddd;
+}
+
+#search-input::placeholder {
+  color: #ddd;
+}
+
+#export-notes {
+  background-color: #333;
+  border: 2px solid #FFF;
+  border-radius: 4px;
+  color: #FFF;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+#export-notes:hover{
+  background-color: #FFF;
+  color: #333;
+}
+
+
+/* Formulario nova nota */
+
+#add-note-container{
+  display: flex;
+  width: 400px;
+  margin: 1rem auto 0;
+  gap: 1rem;
+}
+
+#add-note-container input,
+#add-note-container button {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#add-note-container input{
+  flex: 1;
+  background-color: transparent;
+  border: 1px solid #525356;
+  color: #fff;
+}
+
+#add-note-container button{
+  cursor: pointer;
+  background-color: rgba(51, 51, 51, 0.8);
+  color: #fff;
+  border: 2px solid #000;
+  transition: 0.2;
+}
+
+#add-note-container button:hover{
+  background-color: rgba(51, 51, 51, 1);
+}
+
+/* Notas */
+
+#notes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.note {
+  min-height: 200px;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background-color: #202124;
+  border-radius: 10px;
+  color: #FFF;
+  position: relative;
+}
+
+.note textarea{
+  background-color: transparent;
+  resize: none;
+  color: #FFF;
+  border: none;
+  height: 100%;
+  outline: none;
+}
+
+.note .bi-pin{
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+.note .bi-pin:hover{
+  color: #c9c3c3;
+}
+
+.note .bi-x-lg,
+.note .bi-file-earmark-plus{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 0.9rem;
+  padding: 5px;
+  transition: .3s;
+  color: #555;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.note:hover > i {
+  opacity: 1;
+}
+
+.note .bi-file-earmark-plus{
+  top: 40px;
+}
+
+.note .bi-x-lg:hover,
+.note .bi-file-earmark-plus:hover {
+  color: #FFF;
+}
+
+.note.fixed {
+  background-color: #3c3c3f;
+}
+
+
+
+/* responsividade */
+
+@media (max-width: 450px){
+
+  header{
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+  .note .bi-x-lg,
+.note .bi-file-earmark-plus{
+  opacity: 1;
+}
+
+  #search-container{
+    width: 100%;
+  }
+
+  #search-input {
+    width: 100%;
+  }
+
+  #add-note-container{
+    width: 100%;
+    padding: 0 2rem;
+  }
+
+  #notes-container {
+  grid-template-columns: repeat(auto-fill, 100%);
+  }
+}
+
+
+
+@media (min-width: 451px) AND (max-width: 800px){
+
+  header{
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  #search-container{
+    width: 100%;
+  }
+
+  #search-input {
+    width: 100%;
+  }
+
+  #add-note-container{
+    width: 100%;
+    padding: 0 2rem;
+  }
+
+  #notes-container {
+  grid-template-columns: repeat(auto-fill, 46%);
+  }
+}
+
+
+
