@@ -1,59 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dev Notes</title>
-
-  <!-- Estilos -->
-  <link rel="stylesheet" href="/css/styles.css">
-  <!-- JS -->
-  <script src="/js/script.js" defer></script>
-
-  <!-- bootstrap -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dev Notes · Notas em Markdown que funcionam offline</title>
+  <meta name="description" content="Bloco de notas em Markdown para desenvolvedores: blocos de código, tarefas, etiquetas, busca e backup. Funciona offline e pode ser instalado.">
+  <meta name="theme-color" content="#eef3ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111814" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preload" href="assets/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="src/main.js" type="module"></script>
 </head>
 <body>
-  
-  <header>
-    <h1>Dev Notes</h1>
-    <div id="search-container">
-      <i class="bi bi-search"></i>
-      <input type="text" id="search-input" placeholder="Busque por uma nota">
-    </div>
-    <button id="export-notes">
-      Exportar csv <i class="bi bi-download"></i>
-    </button>
-  </header>
+  <div class="app" id="app" data-view="list">
+    <aside class="sidebar" aria-label="Notas">
+      <div class="sidebar__top">
+        <h1 class="logo">Dev Notes</h1>
+        <button class="button button--primary" type="button" id="new-note" title="Nova nota (Alt+N)">Nova nota</button>
+      </div>
 
-  <div id="add-note-container">
-    <input type="text" id="note-content" placeholder="o que deseja anotar">
-    <button class="add-note"><i class="bi bi-plus-lg"></i></button>
+      <div class="search">
+        <label class="visually-hidden" for="search">Buscar notas</label>
+        <input type="search" id="search" placeholder="Buscar" autocomplete="off">
+        <kbd class="search__hint" aria-hidden="true">Ctrl K</kbd>
+      </div>
+
+      <div class="tags" id="tags" aria-label="Filtrar por etiqueta"></div>
+
+      <ul class="note-list" id="note-list" role="list"></ul>
+      <p class="empty-list" id="empty-list" hidden></p>
+
+      <div class="sidebar__footer">
+        <button class="link-button" type="button" id="export">Exportar backup</button>
+        <label class="link-button" for="import">Importar backup</label>
+        <input class="visually-hidden" type="file" id="import" accept="application/json,.json">
+        <button class="link-button" type="button" id="install" hidden>Instalar app</button>
+      </div>
+    </aside>
+
+    <main class="editor" id="editor" aria-label="Editor">
+      <div class="toolbar">
+        <button class="icon-button back" type="button" id="back" aria-label="Voltar para a lista">←</button>
+        <div class="mode" role="group" aria-label="Modo">
+          <button type="button" class="mode__button" id="mode-edit" aria-pressed="true">Escrever</button>
+          <button type="button" class="mode__button" id="mode-preview" aria-pressed="false">Visualizar</button>
+        </div>
+        <span class="save-status" id="save-status" aria-live="polite"></span>
+        <div class="toolbar__actions">
+          <button class="icon-button" type="button" id="pin" aria-pressed="false" title="Fixar no topo">Fixar</button>
+          <button class="icon-button" type="button" id="duplicate" title="Duplicar">Duplicar</button>
+          <button class="icon-button" type="button" id="download" title="Baixar como .md">.md</button>
+          <button class="icon-button icon-button--danger" type="button" id="delete" title="Excluir">Excluir</button>
+        </div>
+      </div>
+
+      <div class="panes" id="panes">
+        <label class="visually-hidden" for="content">Conteúdo da nota em Markdown</label>
+        <textarea class="source" id="content" spellcheck="false" placeholder="# Título da nota&#10;&#10;Escreva em Markdown. Use #etiquetas para organizar."></textarea>
+        <article class="preview" id="preview" aria-label="Pré-visualização" tabindex="0"></article>
+      </div>
+
+      <div class="placeholder" id="placeholder" hidden>
+        <p>Selecione uma nota ou crie uma nova com <kbd>Alt</kbd> + <kbd>N</kbd>.</p>
+      </div>
+    </main>
   </div>
 
-  <div id="notes-container">
-
-    <!-- vai ser adicionado dinamicamente -->
-
-<!--     
-      notas colocadas dinamicamente
-      
-      <div class="note">
-      <textarea placeholder="Adicione algum texto"></textarea>
-      <i class="bi bi-pin"></i>
-      <i class="bi bi-x-lg"></i>
-      <i class="bi bi-file-earmark-plus"></i>
-    </div>
-    <div class="note fixed">
-      <textarea placeholder="Adicione algum texto"></textarea>
-      <i class="bi bi-pin"></i>
-      <i class="bi bi-x-lg"></i>
-      <i class="bi bi-file-earmark-plus"></i>
-    </div> -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toast-text"></span>
+    <button type="button" id="toast-action"></button>
   </div>
-
-
-
 </body>
 </html>
